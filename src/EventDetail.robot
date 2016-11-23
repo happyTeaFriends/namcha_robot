@@ -10,4 +10,4 @@ Get to listpage
 
 *** Keywords ***
 Get to EventDetail page
-    Open Browser    http://localhost:8080/index.html   chrome
+    Open Browser    http://localhost:8080/index.html   phantomjs
