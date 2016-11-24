@@ -9,7 +9,7 @@ Get to Eventlist
 *** Keywords ***
 Get to Eventlist
             Open Browser                     https://namcha-dev.herokuapp.com/   phantomjs
-            Click Link                              เพิ่ม
+            Click Link                              Add Event
 
 Get to Add Event List
             Selenium2Library.Select From List    id=category         Testing
