@@ -8,7 +8,7 @@ Get to Eventlist
 
 *** Keywords ***
 Get to Eventlist
-            Open Browser                     http://localhost:8080   chrome
+            Open Browser                     https://namcha-dev.herokuapp.com/   phantomjs
             Click Link                              เพิ่ม
 
 Get to Add Event List
