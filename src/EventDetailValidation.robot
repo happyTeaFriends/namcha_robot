@@ -1,7 +1,7 @@
 *** Settings ***
 Library     Selenium2Library
 Suite Setup		Open Browser       https://namcha-dev.herokuapp.com   phantomjs
-#Suite Teardown	Close Browser
+Suite Teardown	Close Browser
 
 *** Test Cases ***
 Validate all required fields
