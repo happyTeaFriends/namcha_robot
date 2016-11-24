@@ -2,7 +2,7 @@
 Library  Selenium2Library
 
 *** Test Cases ***
-Login Facebook with invalid user password
+Login Facebook with invalid user passwords
     Get to facebook login page
     Try to login with invalid user password
     Should not be able to login and show error messages
