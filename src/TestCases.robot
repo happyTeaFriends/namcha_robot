@@ -9,7 +9,7 @@ Login Facebook with invalid user password
 
 *** keywords ***
 Get to facebook login page
-    Open Browser    http://www.facebook.com/   chrome
+    Open Browser    http://www.facebook.com/   phantomjs
     Wait Until Page Contains  ยินดีต้อนรับสู่ Facebook
 
 Try to login with invalid user password
