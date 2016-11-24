@@ -1,6 +1,6 @@
 *** Settings ***
 Library     Selenium2Library
-Suite Setup		Open Browser       ${URL}    chrome
+Suite Setup		Open Browser       ${URL}    phantomjs
 Suite Teardown	Close Browser
 *** Variables ***
 ${URL}                              https://namcha-dev.herokuapp.com
