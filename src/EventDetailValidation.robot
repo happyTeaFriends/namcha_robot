@@ -1,7 +1,19 @@
 *** Settings ***
 Library     Selenium2Library
-Suite Setup		Open Browser       https://namcha-dev.herokuapp.com   phantomjs
+Suite Setup		Open Browser       ${URL}    chrome
 Suite Teardown	Close Browser
+*** Variables ***
+${URL}                          https://namcha-dev.herokuapp.com
+${BREAKLINE_NUMBER}             //*[@id="messageModalBody"]/br
+${CATEGORY_EMPTY_ERROR}         กรุณากรอก Category
+${EVENTNAME_EMPTY_ERROR}        กรุณากรอก EventName
+${LOCATION_EMPTY_ERROR}         กรุณากรอก Location
+${STARTDATE_EMPTY_ERROR}        กรุณากรอก Start Date
+${ENDDATE_EMPTY_ERROR}          กรุณากรอก End Date
+${DESCRIPTION_EMPTY_ERROR}      กรุณากรอก Description
+${DESCRIPTION_UNWANTED_CHARS}   Over144Chars
+${DESCRIPTION_OVER_144_CHARS}   0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234Over144Chars
+&{Training101}                  category=Testing    eventName=BDD 101   location=Geeky Base     startDateInput=11/25/2016 10:50 AM     endDateInput=12/25/2016 12:00 AM     description=This is description
 
 *** Test Cases ***
 Validate all required fields
@@ -51,7 +63,7 @@ Validate description field should not exceed the maximum length
 
 *** Keywords ***
 I want to add more training course
-    Go To		    https://namcha-dev.herokuapp.com
+    Go To		    ${URL}
     Click Link      Add Event
     Wait Until Page Contains Element    id=messageModal     timeout=10 seconds
 
@@ -59,39 +71,39 @@ I should get to the add event list page
     Element Should Contain		//*[@id="page-wrapper"]/div/h2		Add Event List
 
 I fill in all fields except the description field
-    Selenium2Library.Select From List    id=category         Testing
-    Input Text                           id=eventName        BDD 101
-    Input Text                           id=location         Geeky Base
-    Input Text                           id=startDateInput   11/25/2016 10:50 AM
-    Input Text                           id=endDateInput     12/25/2016 12:00 AM
+    Selenium2Library.Select From List    id=category         ${Training101.category}
+    Input Text                           id=eventName        ${Training101.eventName}
+    Input Text                           id=location         ${Training101.location}
+    Input Text                           id=startDateInput   ${Training101.startDateInput}
+    Input Text                           id=endDateInput     ${Training101.endDateInput}
 
 I fill in all fields without select category dropdown
-    Input Text                           id=eventName        BDD 101
-    Input Text                           id=location         Geeky Base
-    Input Text                           id=startDateInput   11/25/2016 10:50 AM
-    Input Text                           id=endDateInput     12/25/2016 12:00 AM
-    Input Text                           id=description      This is Description.
+    Input Text                           id=eventName        ${Training101.eventName}
+    Input Text                           id=location         ${Training101.location}
+    Input Text                           id=startDateInput   ${Training101.startDateInput}
+    Input Text                           id=endDateInput     ${Training101.endDateInput}
+    Input Text                           id=description      ${Training101.description}
 
 I fill in all fields except the location field
-    Selenium2Library.Select From List    id=category         Testing
-    Input Text                           id=eventName        BDD 101
-    Input Text                           id=startDateInput   11/25/2016 10:50 AM
-    Input Text                           id=endDateInput     12/25/2016 12:00 AM
-    Input Text                           id=description      This is Description.
+    Selenium2Library.Select From List    id=category         ${Training101.category}
+    Input Text                           id=eventName        ${Training101.eventName}
+    Input Text                           id=startDateInput   ${Training101.startDateInput}
+    Input Text                           id=endDateInput     ${Training101.endDateInput}
+    Input Text                           id=description      ${Training101.description}
 
 I fill in all fields except the start date field
-    Selenium2Library.Select From List    id=category         Testing
-    Input Text                           id=eventName        BDD 101
-    Input Text                           id=endDateInput     12/25/2016 12:00 AM
-    Input Text                           id=location         Geeky Base
-    Input Text                           id=description      This is Description.
+    Selenium2Library.Select From List    id=category         ${Training101.category}
+    Input Text                           id=eventName        ${Training101.eventName}
+    Input Text                           id=endDateInput     ${Training101.endDateInput}
+    Input Text                           id=location         ${Training101.location}
+    Input Text                           id=description      ${Training101.description}
 
 I fill in all fields except the end date field
-    Selenium2Library.Select From List    id=category         Testing
-    Input Text                           id=eventName        BDD 101
-    Input Text                           id=startDateInput     12/25/2016 12:00 AM
-    Input Text                           id=location         Geeky Base
-    Input Text                           id=description      This is Description.
+    Selenium2Library.Select From List    id=category         ${Training101.category}
+    Input Text                           id=eventName        ${Training101.eventName}
+    Input Text                           id=startDateInput   ${Training101.startDateInput}
+    Input Text                           id=location         ${Training101.location}
+    Input Text                           id=description      ${Training101.description}
 
 I save the information
     Wait Until Element is Visible       id=description
@@ -105,27 +117,27 @@ The system should not allow me to save the information
 The system should not allow me to save the information because the description is empty
     Wait Until Element is Visible       id=messageModal
     Element Should Be Visible           id=messageModal
-    Element Should Contain              id=messageModalBody             กรุณากรอก description
-#            Xpath Should Match X Times          //*[@id="messageModalBody"]/br  0
+    Element Should Contain              id=messageModalBody         ${DESCRIPTION_EMPTY_ERROR}
+    Xpath Should Match X Times          ${BREAKLINE_NUMBER}  0
 
 The error message is the category is empty
     Wait Until Element Is Visible       id=messageModal
-    Element Should Contain              id=messageModalBody     กรุณากรอก category
+    Element Should Contain              id=messageModalBody         ${CATEGORY_EMPTY_ERROR}
 
 The error message is the location is empty
     Wait Until Element Is Visible       id=messageModal
-    Element Should Contain              id=messageModalBody     กรุณากรอก location
+    Element Should Contain              id=messageModalBody         ${LOCATION_EMPTY_ERROR}
 
 The error message is the start date is empty
     Wait Until Element Is Visible       id=messageModal
-    Element Should Contain              id=messageModalBody     กรุณากรอก startDate
+    Element Should Contain              id=messageModalBody         ${STARTDATE_EMPTY_ERROR}
 
 The error message is the end date is empty
     Wait Until Element Is Visible       id=messageModal
-    Element Should Contain              id=messageModalBody     กรุณากรอก endDate
+    Element Should Contain              id=messageModalBody         ${ENDDATE_EMPTY_ERROR}
 
 I try to add a very long description which exceeds the maximum length
-    Input Text                           id=description                 0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234Over144Chars
+    Input Text                           id=description             ${DESCRIPTION_OVER_144_CHARS}
 
 The system should not allow me to enter the description more than the maximum length
-    Element Should Not Contain           id=description                 Over144Chars
+    Element Should Not Contain           id=description             ${DESCRIPTION_UNWANTED_CHARS}
