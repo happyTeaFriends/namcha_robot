@@ -7,16 +7,15 @@ Suite Teardown	Close Browser
 Validate all required fields
     I want to add more training course
     I should get to the add event list page
-    #I save the information
-    #The system should not allow me to save the information
+    I save the information
+    The system should not allow me to save the information
 
-Validate event name field should not be mepty
 Validate description field should not be empty
     I want to add more training course
     I should get to the add event list page
     I fill in all fields except the description field
-    #I save the information
-    #The system should not allow me to save the information because the description is empty
+    I save the information
+    The system should not allow me to save the information because the description is empty
 
 Validate description field should not exceed the maximum length
     I want to add more training course
@@ -41,10 +40,12 @@ I fill in all fields except the description field
             Input Text                           id=endDateInput     12/25/2016 12:00 AM
 
 I save the information
-            Click Button     บันทึก
+            Click Button        id=saveButton
 
 The system should not allow me to save the information
-            Select Window       Error modal
+            Wait Until Element is Visible   id=messageModal
+            Element Should Be Visible       id=messageModal
+
 
 The system should not allow me to save the information because the description is empty
             Select Window       Error modal
