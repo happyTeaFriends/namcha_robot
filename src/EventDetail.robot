@@ -3,7 +3,7 @@ Library     Selenium2Library
 Suite Setup     Open Browser    https://namcha-dev.herokuapp.com/  phantomjs
 
 *** Test Cases ***
-Get to listpage
+Get to listpages
     I want to Upcoming Events from Us page
     #I want to see eventdetail page with all fields being read-only
     #I want to see "post facebook" modal
