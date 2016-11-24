@@ -1,19 +1,21 @@
 *** Settings ***
 Library     Selenium2Library
-Suite Setup		Open Browser       ${URL}    phantomjs
+Suite Setup		Open Browser       ${URL}    chrome
 Suite Teardown	Close Browser
 *** Variables ***
-${URL}                          https://namcha-dev.herokuapp.com
-${BREAKLINE_NUMBER}             //*[@id="messageModalBody"]/br
-${CATEGORY_EMPTY_ERROR}         กรุณากรอก Category
-${EVENTNAME_EMPTY_ERROR}        กรุณากรอก Event Name
-${LOCATION_EMPTY_ERROR}         กรุณากรอก Location
-${STARTDATE_EMPTY_ERROR}        กรุณากรอก Start Date
-${ENDDATE_EMPTY_ERROR}          กรุณากรอก End Date
-${DESCRIPTION_EMPTY_ERROR}      กรุณากรอก Description
-${DESCRIPTION_UNWANTED_CHARS}   Over144Chars
-${DESCRIPTION_OVER_144_CHARS}   0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234Over144Chars
-&{Training101}                  category=Testing    eventName=BDD 101   location=Geeky Base     startDateInput=11/25/2016 10:50 AM     endDateInput=12/25/2016 12:00 AM     description=This is description
+${URL}                              https://namcha-dev.herokuapp.com
+${BREAKLINE_NUMBER}                 //*[@id="messageModalBody"]/br
+${CATEGORY_EMPTY_ERROR}             กรุณากรอก Category
+${EVENTNAME_EMPTY_ERROR}            กรุณากรอก Event Name
+${LOCATION_EMPTY_ERROR}             กรุณากรอก Location
+${STARTDATE_EMPTY_ERROR}            กรุณากรอก Start Date
+${ENDDATE_EMPTY_ERROR}              กรุณากรอก End Date
+${DESCRIPTION_EMPTY_ERROR}          กรุณากรอก Description
+${DATE_RANGE_ERROR}                 Start Date ต้องไม่เกิน End Date
+${DESCRIPTION_UNWANTED_CHARS}       Over144Chars
+${DESCRIPTION_OVER_144_CHARS}       0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234Over144Chars
+&{Training101}                      category=Testing    eventName=BDD 101   location=Geeky Base     startDateInput=11/25/2016 10:50 AM     endDateInput=12/25/2016 12:00 AM     description=This is description
+&{INVALID_DATE_RANGE}               startDateInput=11/27/2016 10:50 AM     endDateInput=11/25/2016 12:00 AM
 
 *** Test Cases ***
 Validate all required fields
@@ -47,6 +49,12 @@ Validate end date field should not be empty
     I fill in all fields except the end date field
     I save the information
     The error message is the end date is empty
+
+Validate start date field should less than end date
+    I want to add more training course
+    I fill in all fields with invalid date range
+    I save the information
+    The error message is the start date must less than end date
 
 Validate location field should not be empty
     I want to add more training course
@@ -119,6 +127,14 @@ I fill in all fields except the end date field
     Input Text                           id=location         ${Training101.location}
     Input Text                           id=description      ${Training101.description}
 
+I fill in all fields with invalid date range
+    Selenium2Library.Select From List    id=category         ${Training101.category}
+    Input Text                           id=eventName        ${Training101.eventName}
+    Input Text                           id=startDateInput   ${INVALID_DATE_RANGE.startDateInput}
+    Input Text                           id=endDateInput     ${INVALID_DATE_RANGE.endDateInput}
+    Input Text                           id=location         ${Training101.location}
+    Input Text                           id=description      ${Training101.description}
+
 I save the information
     Wait Until Element is Visible       id=description
     Click Button                        id=saveButton
@@ -163,3 +179,7 @@ I try to add a very long description which exceeds the maximum length
 
 The system should not allow me to enter the description more than the maximum length
     Element Should Not Contain           id=description             ${DESCRIPTION_UNWANTED_CHARS}
+
+The error message is the start date must less than end date
+    Wait Until Element Is Visible       id=messageModal
+    Element Should Contain              id=messageModalBody         ${DATE_RANGE_ERROR}
