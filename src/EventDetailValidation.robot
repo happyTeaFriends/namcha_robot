@@ -1,12 +1,12 @@
 *** Settings ***
 Library     Selenium2Library
-Suite Setup		Open Browser       ${URL}    chrome
+Suite Setup		Open Browser       ${URL}    phantomjs
 Suite Teardown	Close Browser
 *** Variables ***
 ${URL}                          https://namcha-dev.herokuapp.com
 ${BREAKLINE_NUMBER}             //*[@id="messageModalBody"]/br
 ${CATEGORY_EMPTY_ERROR}         กรุณากรอก Category
-${EVENTNAME_EMPTY_ERROR}        กรุณากรอก EventName
+${EVENTNAME_EMPTY_ERROR}        กรุณากรอก Event Name
 ${LOCATION_EMPTY_ERROR}         กรุณากรอก Location
 ${STARTDATE_EMPTY_ERROR}        กรุณากรอก Start Date
 ${ENDDATE_EMPTY_ERROR}          กรุณากรอก End Date
@@ -19,7 +19,7 @@ ${DESCRIPTION_OVER_144_CHARS}   012345678901234567890123456789012345678901234567
 Validate all required fields
     I want to add more training course
     I should get to the add event list page
-    I save the information
+    I save the information without entering any information
     The system should not allow me to save the information
 
 Validate category field should not be empty
@@ -28,6 +28,13 @@ Validate category field should not be empty
     I fill in all fields without select category dropdown
     I save the information
     The error message is the category is empty
+
+Validate event name field should not be empty
+    I want to add more training course
+    I should get to the add event list page
+    I fill in all fields except the event name field
+    I save the information
+    The error message is the event name is empty
 
 Validate start date field should not be empty
     I want to add more training course
@@ -84,6 +91,13 @@ I fill in all fields without select category dropdown
     Input Text                           id=endDateInput     ${Training101.endDateInput}
     Input Text                           id=description      ${Training101.description}
 
+I fill in all fields except the event name field
+    Selenium2Library.Select From List    id=category         ${Training101.category}
+    Input Text                           id=location         ${Training101.location}
+    Input Text                           id=startDateInput   ${Training101.startDateInput}
+    Input Text                           id=endDateInput     ${Training101.endDateInput}
+    Input Text                           id=description      ${Training101.description}
+
 I fill in all fields except the location field
     Selenium2Library.Select From List    id=category         ${Training101.category}
     Input Text                           id=eventName        ${Training101.eventName}
@@ -109,6 +123,10 @@ I save the information
     Wait Until Element is Visible       id=description
     Click Button                        id=saveButton
 
+I save the information without entering any information
+    Wait Until Element is Visible       id=description
+    Click Button                        id=saveButton
+
 The system should not allow me to save the information
     Wait Until Element is Visible       id=messageModal
     Element Should Be Visible           id=messageModal
@@ -118,11 +136,15 @@ The system should not allow me to save the information because the description i
     Wait Until Element is Visible       id=messageModal
     Element Should Be Visible           id=messageModal
     Element Should Contain              id=messageModalBody         ${DESCRIPTION_EMPTY_ERROR}
-    Xpath Should Match X Times          ${BREAKLINE_NUMBER}  0
+    Xpath Should Match X Times          ${BREAKLINE_NUMBER}         0
 
 The error message is the category is empty
     Wait Until Element Is Visible       id=messageModal
     Element Should Contain              id=messageModalBody         ${CATEGORY_EMPTY_ERROR}
+
+The error message is the event name is empty
+     Wait Until Element Is Visible      id=messageModal
+     Element Should Contain             id=messageModalBody         ${EVENTNAME_EMPTY_ERROR}
 
 The error message is the location is empty
     Wait Until Element Is Visible       id=messageModal
