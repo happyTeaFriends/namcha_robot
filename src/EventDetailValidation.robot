@@ -1,6 +1,6 @@
 *** Settings ***
 Library     Selenium2Library
-Suite Setup		Open Browser       https://namcha-dev.herokuapp.com/   chrome
+Suite Setup		Open Browser       https://namcha-dev.herokuapp.com/   phantomjs
 Suite Teardown	Close Browser
 
 *** Test Cases ***
@@ -10,6 +10,7 @@ Validate all required fields
     #I save the information
     #The system should not allow me to save the information
 
+Validate event name field should not be mepty
 Validate description field should not be empty
     I want to add more training course
     I should get to the add event list page
