@@ -17,13 +17,23 @@ Validate category field should not be empty
     I save the information
     The error message is the category is empty
 
-Validate location field should not be empty
-    I want to add event
-    I fill in all fields except the location field
-    #I save the information
-    #The error message is the location is empty
+Validate start date field should not be empty
+    I want to add more training course
+    I fill in all fields except the start date field
+    I save the information
+    The error message is the start date is empty
 
-Validate event name field should not be empty
+Validate end date field should not be empty
+    I want to add more training course
+    I fill in all fields except the end date field
+    I save the information
+    The error message is the end date is empty
+
+Validate location field should not be empty
+    I want to add more training course
+    I fill in all fields except the location field
+    I save the information
+    The error message is the location is empty
 
 Validate description field should not be empty
     I want to add more training course
@@ -43,6 +53,7 @@ Validate description field should not exceed the maximum length
 I want to add more training course
     Go To		    https://namcha-dev.herokuapp.com
     Click Link      Add Event
+            Wait Until Page Contains Element    id=messageModal     timeout=10 seconds
 
 I should get to the add event list page
     Element Should Contain		//*[@id="page-wrapper"]/div/h2		Add Event List
@@ -68,6 +79,20 @@ I fill in all fields except the location field
             Input Text                           id=endDateInput     12/25/2016 12:00 AM
             Input Text                           id=description      This is Description.
 
+I fill in all fields except the start date field
+            Selenium2Library.Select From List    id=category         Testing
+            Input Text                           id=eventName        BDD 101
+            Input Text                           id=endDateInput     12/25/2016 12:00 AM
+            Input Text                           id=location         Geeky Base
+            Input Text                           id=description      This is Description.
+
+I fill in all fields except the end date field
+            Selenium2Library.Select From List    id=category         Testing
+            Input Text                           id=eventName        BDD 101
+            Input Text                           id=startDateInput     12/25/2016 12:00 AM
+            Input Text                           id=location         Geeky Base
+            Input Text                           id=description      This is Description.
+
 I save the information
     Wait Until Element is Visible       id=description
     Click Button                        id=saveButton
@@ -91,12 +116,16 @@ The error message is the location is empty
             Wait Until Element Is Visible       id=messageModal
             Element Should Contain              id=messageModalBody     กรุณากรอก location
 
+The error message is the start date is empty
+            Wait Until Element Is Visible       id=messageModal
+            Element Should Contain              id=messageModalBody     กรุณากรอก startDate
+
+The error message is the end date is empty
+            Wait Until Element Is Visible       id=messageModal
+            Element Should Contain              id=messageModalBody     กรุณากรอก endDate
+
 I try to add a very long description which exceeds the maximum length
     Input Text                           id=description                 0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234Over144Chars
 
 The system should not allow me to enter the description more than the maximum length
     Element Should Not Contain           id=description                 Over144Chars
-
-I want to add event
-            I want to add more training course
-            I should get to the add event list page
