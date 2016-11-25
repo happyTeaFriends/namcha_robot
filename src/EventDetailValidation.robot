@@ -2,20 +2,6 @@
 Library     Selenium2Library
 Suite Setup		Open Browser       ${URL}    phantomjs
 Suite Teardown	Close Browser
-*** Variables ***
-${URL}                              https://namcha-dev.herokuapp.com
-${BREAKLINE_NUMBER}                 //*[@id="messageModalBody"]/br
-${CATEGORY_EMPTY_ERROR}             กรุณากรอก Category
-${EVENTNAME_EMPTY_ERROR}            กรุณากรอก Event Name
-${LOCATION_EMPTY_ERROR}             กรุณากรอก Location
-${STARTDATE_EMPTY_ERROR}            กรุณากรอก Start Date
-${ENDDATE_EMPTY_ERROR}              กรุณากรอก End Date
-${DESCRIPTION_EMPTY_ERROR}          กรุณากรอก Description
-${DATE_RANGE_ERROR}                 Start Date ต้องไม่เกิน End Date
-${DESCRIPTION_UNWANTED_CHARS}       Over144Chars
-${DESCRIPTION_OVER_144_CHARS}       0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234Over144Chars
-&{Training101}                      category=Testing    eventName=BDD 101   location=Geeky Base     startDateInput=11/25/2016 10:50 AM     endDateInput=12/25/2016 12:00 AM     description=This is description
-&{INVALID_DATE_RANGE}               startDateInput=11/27/2016 10:50 AM     endDateInput=11/25/2016 12:00 AM
 
 *** Test Cases ***
 Validate all required fields
@@ -86,54 +72,54 @@ I should get to the add event list page
     Element Should Contain		//*[@id="page-wrapper"]/div/h2		Add Event List
 
 I fill in all fields except the description field
-    Selenium2Library.Select From List    id=category         ${Training101.category}
-    Input Text                           id=eventName        ${Training101.eventName}
-    Input Text                           id=location         ${Training101.location}
-    Input Text                           id=startDateInput   ${Training101.startDateInput}
-    Input Text                           id=endDateInput     ${Training101.endDateInput}
+    Selenium2Library.Select From List    id=category         ${SuccessfullyCase.category}
+    Input Text                           id=eventName        ${SuccessfullyCase.eventName}
+    Input Text                           id=location         ${SuccessfullyCase.location}
+    Input Text                           id=startDateInput   ${SuccessfullyCase.startDateInput}
+    Input Text                           id=endDateInput     ${SuccessfullyCase.endDateInput}
 
 I fill in all fields without select category dropdown
-    Input Text                           id=eventName        ${Training101.eventName}
-    Input Text                           id=location         ${Training101.location}
-    Input Text                           id=startDateInput   ${Training101.startDateInput}
-    Input Text                           id=endDateInput     ${Training101.endDateInput}
-    Input Text                           id=description      ${Training101.description}
+    Input Text                           id=eventName        ${SuccessfullyCase.eventName}
+    Input Text                           id=location         ${SuccessfullyCase.location}
+    Input Text                           id=startDateInput   ${SuccessfullyCase.startDateInput}
+    Input Text                           id=endDateInput     ${SuccessfullyCase.endDateInput}
+    Input Text                           id=description      ${SuccessfullyCase.description}
 
 I fill in all fields except the event name field
-    Selenium2Library.Select From List    id=category         ${Training101.category}
-    Input Text                           id=location         ${Training101.location}
-    Input Text                           id=startDateInput   ${Training101.startDateInput}
-    Input Text                           id=endDateInput     ${Training101.endDateInput}
-    Input Text                           id=description      ${Training101.description}
+    Selenium2Library.Select From List    id=category         ${SuccessfullyCase.category}
+    Input Text                           id=location         ${SuccessfullyCase.location}
+    Input Text                           id=startDateInput   ${SuccessfullyCase.startDateInput}
+    Input Text                           id=endDateInput     ${SuccessfullyCase.endDateInput}
+    Input Text                           id=description      ${SuccessfullyCase.description}
 
 I fill in all fields except the location field
-    Selenium2Library.Select From List    id=category         ${Training101.category}
-    Input Text                           id=eventName        ${Training101.eventName}
-    Input Text                           id=startDateInput   ${Training101.startDateInput}
-    Input Text                           id=endDateInput     ${Training101.endDateInput}
-    Input Text                           id=description      ${Training101.description}
+    Selenium2Library.Select From List    id=category         ${SuccessfullyCase.category}
+    Input Text                           id=eventName        ${SuccessfullyCase.eventName}
+    Input Text                           id=startDateInput   ${SuccessfullyCase.startDateInput}
+    Input Text                           id=endDateInput     ${SuccessfullyCase.endDateInput}
+    Input Text                           id=description      ${SuccessfullyCase.description}
 
 I fill in all fields except the start date field
-    Selenium2Library.Select From List    id=category         ${Training101.category}
-    Input Text                           id=eventName        ${Training101.eventName}
-    Input Text                           id=endDateInput     ${Training101.endDateInput}
-    Input Text                           id=location         ${Training101.location}
-    Input Text                           id=description      ${Training101.description}
+    Selenium2Library.Select From List    id=category         ${SuccessfullyCase.category}
+    Input Text                           id=eventName        ${SuccessfullyCase.eventName}
+    Input Text                           id=endDateInput     ${SuccessfullyCase.endDateInput}
+    Input Text                           id=location         ${SuccessfullyCase.location}
+    Input Text                           id=description      ${SuccessfullyCase.description}
 
 I fill in all fields except the end date field
-    Selenium2Library.Select From List    id=category         ${Training101.category}
-    Input Text                           id=eventName        ${Training101.eventName}
-    Input Text                           id=startDateInput   ${Training101.startDateInput}
-    Input Text                           id=location         ${Training101.location}
-    Input Text                           id=description      ${Training101.description}
+    Selenium2Library.Select From List    id=category         ${SuccessfullyCase.category}
+    Input Text                           id=eventName        ${SuccessfullyCase.eventName}
+    Input Text                           id=startDateInput   ${SuccessfullyCase.startDateInput}
+    Input Text                           id=location         ${SuccessfullyCase.location}
+    Input Text                           id=description      ${SuccessfullyCase.description}
 
 I fill in all fields with invalid date range
-    Selenium2Library.Select From List    id=category         ${Training101.category}
-    Input Text                           id=eventName        ${Training101.eventName}
-    Input Text                           id=startDateInput   ${INVALID_DATE_RANGE.startDateInput}
-    Input Text                           id=endDateInput     ${INVALID_DATE_RANGE.endDateInput}
-    Input Text                           id=location         ${Training101.location}
-    Input Text                           id=description      ${Training101.description}
+    Selenium2Library.Select From List    id=category         ${SuccessfullyCase.category}
+    Input Text                           id=eventName        ${SuccessfullyCase.eventName}
+    Input Text                           id=startDateInput   ${InvalidDateRange.startDateInput}
+    Input Text                           id=endDateInput     ${InvalidDateRange.endDateInput}
+    Input Text                           id=location         ${SuccessfullyCase.location}
+    Input Text                           id=description      ${SuccessfullyCase.description}
 
 I save the information
     Wait Until Element is Visible       id=description
@@ -183,3 +169,19 @@ The system should not allow me to enter the description more than the maximum le
 The error message is the start date must less than end date
     Wait Until Element Is Visible       id=messageModal
     Element Should Contain              id=messageModalBody         ${DATE_RANGE_ERROR}
+
+*** Variables ***
+${URL}                              https://namcha-dev.herokuapp.com
+${BREAKLINE_NUMBER}                 //*[@id="messageModalBody"]/br
+${CATEGORY_EMPTY_ERROR}             กรุณากรอก Category
+${EVENTNAME_EMPTY_ERROR}            กรุณากรอก Event Name
+${LOCATION_EMPTY_ERROR}             กรุณากรอก Location
+${STARTDATE_EMPTY_ERROR}            กรุณากรอก Start Date
+${ENDDATE_EMPTY_ERROR}              กรุณากรอก End Date
+${DESCRIPTION_EMPTY_ERROR}          กรุณากรอก Description
+${DATE_RANGE_ERROR}                 Start Date ต้องไม่เกิน End Date
+${DESCRIPTION_UNWANTED_CHARS}       Over144Chars
+${DESCRIPTION_OVER_144_CHARS}       0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234Over144Chars
+
+&{SuccessfullyCase}                 category=Testing    eventName=BDD 101   location=Geeky Base     startDateInput=11/25/2216 10:50 AM     endDateInput=12/25/2216 12:00 AM     description=This is description
+&{InvalidDateRange}                 startDateInput=11/27/2216 10:50 AM     endDateInput=11/25/2216 12:00 AM
