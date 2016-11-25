@@ -183,5 +183,5 @@ ${DATE_RANGE_ERROR}                 Start Date ต้องไม่เกิน
 ${DESCRIPTION_UNWANTED_CHARS}       Over144Chars
 ${DESCRIPTION_OVER_144_CHARS}       0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234Over144Chars
 
-&{SuccessfullyCase}                 category=Testing    eventName=BDD 101   location=Geeky Base     startDateInput=11/25/2016 10:50 AM     endDateInput=12/25/2016 12:00 AM     description=This is description
-&{InvalidDateRange}                 startDateInput=11/27/2016 10:50 AM     endDateInput=11/25/2016 12:00 AM
+&{SuccessfullyCase}                 category=Testing    eventName=BDD 101   location=Geeky Base     startDateInput=11/25/2216 10:50 AM     endDateInput=12/25/2216 12:00 AM     description=This is description
+&{InvalidDateRange}                 startDateInput=11/27/2216 10:50 AM     endDateInput=11/25/2216 12:00 AM
