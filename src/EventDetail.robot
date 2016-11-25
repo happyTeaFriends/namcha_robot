@@ -33,7 +33,7 @@ Verify error modal should not be display if the start date is past date
 
 *** Keywords ***
 Go To Namcha App with FAcebook logged in
-    Open Browser                https://th-th.facebook.com/         gc                              #phantomjs
+    Open Browser                https://th-th.facebook.com/         phantomjs
     Input Text                  id=email                            happyteafriendsja@gmail.com
     Input Password              id=pass                             qwerty159632478
     Click Button                เข้าสู่ระบบ
